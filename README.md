@@ -1,7 +1,7 @@
 act-chrome-extension
 ===
 
-Shows your ACT Broadband data usage.
+Shows your ACT Broadband data usage (Bangalore currently).
 
 Based on 'airtel-chrome-extension' by Rakesh Pai. https://github.com/rakeshpai/airtel-chrome-extension
 
