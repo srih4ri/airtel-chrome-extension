@@ -9,6 +9,7 @@ var list = [
     {'name':'ACT BB HO Value','data': '250 GB'},    
     {'name':'ACT BB HO Extra','data': '350 GB'}
 ];
+
 var xhr1 = new XMLHttpRequest();
 xhr1.open("GET", "http://portal.acttv.in/index.php/mypackage", true);
 xhr1.onreadystatechange = function() {
@@ -36,12 +37,9 @@ xhr1.onreadystatechange = function() {
 };
 xhr1.send();
 
-
-
 var xhr = new XMLHttpRequest();
 xhr.open("GET", "http://portal.acttv.in/index.php/myusage", true);
 xhr.onreadystatechange = function() {
-
 	var div = document.createElement("div");
 	div.innerHTML = xhr.responseText;
 	
