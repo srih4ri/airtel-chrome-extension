@@ -1,73 +1,69 @@
 <!doctype html>
+<html>
+  <head>
+    <title>ACT Broadband Meter</title>
+    <style>
+        body {
+        min-width: 200px;
+        overflow-x: hidden;
+        }
 
-<style>
-	body {
-		font-family: sans-serif;
-		font-size: 12px;
+        #first-row{
+            width: 100%;
+            height: 50px;
+        }
 
-		width: 200px;
-		color: #111;
-	}
+        .half{
+            width: 50%;
+            display: inline-block;
+            float: left;
+        }
 
-	#loading, #details, #error {
-		display: none;
-	}
+        .hint{
+            color: #C2C2C2;
+            font-size: 12px;
+        }
 
-	#loading {
-		text-align: center;
-		margin: 40px 0;
-		color: #bbb;
-	}
+        #consumed{
+            padding-top: 6px;
+            font-size: 24px;
+            color: #FF7C15;
+        }
 
-	#details {
-		display: none;
-	}
+        #fup{
+            padding-top: 6px;
+            font-size: 24px;
+            color: #1569FF;
+        }
 
-	meter {
-		display: block;
-		width: 100%;
-		margin-bottom: 5px;
-	}
+        #bb-meter{
+            font-size: 57px;
+            text-align: center;
+            background-color: #0C97D8;
+            color: #fff;
+            margin: 22px 10px;
+            padding: 10px 0;
+        }
 
-	h1 {
-		font-size: 14px;
-	}
+    </style>
 
-	footer {
-		color: #bbb;
-		margin-top: 10px;
-		font-size: 11px;
-	}
+    <script src="popup.js"></script>
+  </head>
+<body>
+    <div id="first-row">
+       <div class="half">
+           <div class="hint">Consumed</div>
+           <div id="consumed"> </div>
+       </div>
+       <div class="half">
+           <div class="hint">FUP</div>
+           <div id="fup"></div>
+       </div>
+    </div>
+    <div id="second-row">
+        <div id="bb-meter">
 
-	.percentage { float: right; font-size: 12px; }
-	.gist { font-size: 12px; font-weight: bold; }
-
-	.loading #loading { display: block; }
-	.details #details { display: block; }
-	.error #error { display: block; }
-</style>
-
-<body class="loading">
-	<div id="loading">Loading&hellip;</div>
-
-	<div id="details"></div>
-
-	<div id="error">
-		<h1>Something's wrong</h1>
-		<p>This extension only works if you are connected to an Airtel broadband connection.</p>
-	</div>
-
-	<template id="detailsTemplate">
-		<meter min="0" max="100" value="90">30 GB</meter>
-		<div class="percentage">${used}% used</div>
-		<div class="gist">
-			${remaining} GB left<br />
-			${days} days left
-		</div>
-		<footer>
-			Your DSL number is ${dslNumber}
-		</footer>
-	</template>
-
-	<script src="popup.js"></script>
-</body>
+        </div>
+    </div>
+   </body>
+</html>
