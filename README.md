@@ -5,6 +5,8 @@ Shows your ACT Broadband data usage.
 
 Based on 'airtel-chrome-extension' by Rakesh Pai. https://github.com/rakeshpai/airtel-chrome-extension
 
+Built during Hasgeek Newyear 2014 Hacknight by Mrinmoy Das and Anenth Guru.
+
 Installation
 ---
 
