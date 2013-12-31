@@ -12,12 +12,4 @@ Installation
 2. Type in `chrome://extensions` in your address bar in Google Chrome.
 3. Check the "Developer mode" checkbox at the top right of the page.
 4. Click the "Load unpacked extension..." button, and select the folder that you created in the first step.
-
-That's it! You should see a new Airtel logo next to your Chrome address bar. Click it to see details about your data usage.
------
-
-
-License
----
-
-MIT
+5. That's it! You should see a new Airtel logo next to your Chrome address bar. Click it to see details about your data usage. 
