@@ -19,3 +19,7 @@ Installation
 License
 ---
 MIT
+
+Preview
+---
+![](https://dl.dropboxusercontent.com/u/4398063/ACT_Plugin.JPG)
