@@ -13,6 +13,8 @@ var list = [
 var xhr1 = new XMLHttpRequest();
 xhr1.open("GET", "http://portal.acttv.in/index.php/mypackage", true);
 xhr1.onreadystatechange = function () {
+    var div, fup, value, vendor;
+
     if (this.readyState != 4) return;
 
     document.body.classList.remove("loading");
@@ -22,16 +24,16 @@ xhr1.onreadystatechange = function () {
         return;
     }
 
-    var div = document.createElement("div");
+    div = document.createElement("div");
     div.innerHTML = this.responseText;
 
-    var fup = document
-            .getElementById("fup");
-    var value = div
-            .querySelector(".moduletable tr:nth-child(3) td:nth-child(3)")
-            .textContent
-            .trim();
-    var vendor;
+    fup = document.getElementById("fup");
+
+    value = div
+        .querySelector(".moduletable tr:nth-child(3) td:nth-child(3)")
+        .textContent
+        .trim();
+
     for (vendor in list) {
         if (value == list[vendor].name.toUpperCase()) {
             fup.innerHTML = list[vendor].data;
@@ -44,17 +46,21 @@ xhr1.send();
 var xhr = new XMLHttpRequest();
 xhr.open("GET", "http://portal.acttv.in/index.php/myusage", true);
 xhr.onreadystatechange = function () {
-    var div = document.createElement("div");
+    var div, consumed, fup, fup_no, consumed_no, bb_meter;
+
+    if (this.readyState != 4) return;
+
+    div = document.createElement("div");
     div.innerHTML = this.responseText;
-    var consumed;
+
     consumed = document.getElementById("consumed");
     consumed.innerHTML = div.querySelector("#total td:nth-child(2)").textContent;
 
-    var fup = document.getElementById("fup");
+    fup = document.getElementById("fup");
 
-    var fup_no = fup.innerHTML.replace(" GB", "");
-    var consumed_no = consumed.innerHTML.replace("&nbsp;GB", "");
-    var bb_meter;
+    fup_no = fup.innerHTML.replace(" GB", "");
+    consumed_no = consumed.innerHTML.replace("&nbsp;GB", "");
+
     bb_meter = document.getElementById("bb-meter");
 
     bb_meter.innerHTML = ((fup_no - consumed_no) / fup_no) * 100 + "%";
