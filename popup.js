@@ -13,17 +13,17 @@ var list = [
 var xhr1 = new XMLHttpRequest();
 xhr1.open("GET", "http://portal.acttv.in/index.php/mypackage", true);
 xhr1.onreadystatechange = function() {
-	if(xhr1.readyState != 4) return;
+	if(this.readyState != 4) return;
 
 	document.body.classList.remove("loading");
 
-	if(xhr1.status != 200) {
+	if(this.status != 200) {
 		document.body.classList.add("error");
 		return;
 	}
 
 	var div = document.createElement("div");
-	div.innerHTML = xhr1.responseText;
+	div.innerHTML = this.responseText;
 
 	var fup = document.getElementById("fup");
 	var value = div.querySelector(".moduletable tr:nth-child(3) td:nth-child(3)").textContent.trim();
@@ -41,8 +41,8 @@ var xhr = new XMLHttpRequest();
 xhr.open("GET", "http://portal.acttv.in/index.php/myusage", true);
 xhr.onreadystatechange = function() {
 	var div = document.createElement("div");
-	div.innerHTML = xhr.responseText;
-	
+	div.innerHTML = this.responseText;
+
 	consumed = document.getElementById("consumed");
 	consumed.innerHTML = div.querySelector("#total td:nth-child(2)").textContent;
 
