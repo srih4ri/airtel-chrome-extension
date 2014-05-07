@@ -1,13 +1,13 @@
 var packages = [
-    {'name':'ACT Freedom','data': 20 },
-    {'name':'ACT Liberty','data': 30 },
-    {'name':'ACT Privilege','data': 40 },
-    {'name':'ACT Abundant','data': 50 },
-    {'name':'ACT Indulge','data': 60 },
-    {'name':'ACT Extravagant','data': 100 },
-    {'name':'ACT Force','data': 200 },
-    {'name':'ACT BB HO Value','data': 250 },
-    {'name':'ACT BB HO Extra','data': 350 }
+    {'name': 'ACT Freedom', 'data': 20},
+    {'name': 'ACT Liberty', 'data': 30},
+    {'name': 'ACT Privilege', 'data': 40},
+    {'name': 'ACT Abundant', 'data': 50},
+    {'name': 'ACT Indulge', 'data': 60},
+    {'name': 'ACT Extravagant', 'data': 100},
+    {'name': 'ACT Force', 'data': 200},
+    {'name': 'ACT BB HO Value', 'data': 250},
+    {'name': 'ACT BB HO Extra', 'data': 350}
 ],
     usage, // Total usage, in GigaBytes
     package, // Users's package -> one among the list
@@ -17,7 +17,7 @@ var packages = [
     render,
     onError;
 
-render = function(n) {
+render = function (n) {
     if (!usage || !package) {
         return false;
     }
@@ -35,7 +35,7 @@ render = function(n) {
     return this;
 },
 
-onError = function() {
+onError = function () {
     document.body.classList.add("error");
 };
 
