@@ -1,68 +1,98 @@
-var list = [
-    {'name':'ACT Freedom','data':'20 GB'},
-    {'name':'ACT Liberty','data':'30 GB'},
-    {'name':'ACT Privilege','data':'40 GB'},
-    {'name':'ACT Abundant','data':'50 GB'},
-    {'name':'ACT Indulge','data':'60 GB'},
-    {'name':'ACT Extravagant','data':'100 GB'},
-    {'name':'ACT Force','data':'200 GB'},
-    {'name':'ACT BB HO Value','data': '250 GB'},
-    {'name':'ACT BB HO Extra','data': '350 GB'}
-];
+var packages = [
+    {'name':'ACT Freedom','data': 20 },
+    {'name':'ACT Liberty','data': 30 },
+    {'name':'ACT Privilege','data': 40 },
+    {'name':'ACT Abundant','data': 50 },
+    {'name':'ACT Indulge','data': 60 },
+    {'name':'ACT Extravagant','data': 100 },
+    {'name':'ACT Force','data': 200 },
+    {'name':'ACT BB HO Value','data': 250 },
+    {'name':'ACT BB HO Extra','data': 350 }
+],
+    usage, // Total usage, in GigaBytes
+    package, // Users's package -> one among the list
 
-var xhr1 = new XMLHttpRequest();
-xhr1.open("GET", "http://portal.acttv.in/index.php/mypackage", true);
-xhr1.onreadystatechange = function () {
-    var div, fup, value, vendor;
+    usageHandler,
+    packageHandler,
+    render,
+    onError;
 
-    if (this.readyState != 4) return;
+render = function(n) {
+    if (!usage || !package) {
+        return false;
+    }
 
     document.body.classList.remove("loading");
 
+    var consumed = document.getElementById("consumed"),
+        fup = document.getElementById("fup"),
+        bbMeter = document.getElementById("bb-meter");
+
+    consumed.innerHTML = usage;
+    fup.innerHTML = package.data + ' GB';
+    bbMeter.innerHTML = ((package.data - usage) / package.data) * 100 + "%";
+
+    return this;
+},
+
+onError = function() {
+    document.body.classList.add("error");
+};
+
+// Find and update user's package.
+packageHandler = new XMLHttpRequest();
+packageHandler.open("GET", "http://portal.acttv.in/index.php/mypackage", true);
+packageHandler.onreadystatechange = function () {
+    var div, t;
+
+    if (this.readyState != 4) {
+        return this;
+    }
+
     if (this.status !== 200) {
-        document.body.classList.add("error");
-        return;
+        return onError("Something went wrong");
     }
 
     div = document.createElement("div");
     div.innerHTML = this.responseText;
 
-    fup = document.getElementById("fup");
-
-    value = div
+    t = div
         .querySelector(".moduletable tr:nth-child(3) td:nth-child(3)")
         .textContent
         .trim();
 
-    for (vendor in list) {
-        if (value == list[vendor].name.toUpperCase()) {
-            fup.innerHTML = list[vendor].data;
-            break;
-        }
-    }
+    package = packages.filter(function (f) {
+        return (f.name.toUpperCase() === t);
+    })[0];
+
+    return render();
 };
-xhr1.send();
+packageHandler.send();
 
-var xhr = new XMLHttpRequest();
-xhr.open("GET", "http://portal.acttv.in/index.php/myusage", true);
-xhr.onreadystatechange = function () {
-    var div, consumed, fup, fup_no, consumed_no, bb_meter;
+// Find and update current usage
+usageHandler = new XMLHttpRequest();
+usageHandler.open("GET", "http://portal.acttv.in/index.php/myusage", true);
+usageHandler.onreadystatechange = function () {
+    var div, t;
 
-    if (this.readyState != 4) return;
+    if (this.readyState != 4) {
+        return this;
+    }
+
+    if (this.status !== 200) {
+        return onError("Something went wrong");
+    }
 
     div = document.createElement("div");
     div.innerHTML = this.responseText;
 
-    consumed = document.getElementById("consumed");
-    consumed.innerHTML = div.querySelector("#total td:nth-child(2)").textContent;
+    t = div
+        .querySelector("#total td:nth-child(2)")
+        .textContent
+        .replace("GB", '');
 
-    fup = document.getElementById("fup");
+    usage = parseFloat(t, 10);
 
-    fup_no = fup.innerHTML.replace(" GB", "");
-    consumed_no = consumed.innerHTML.replace("&nbsp;GB", "");
-
-    bb_meter = document.getElementById("bb-meter");
-
-    bb_meter.innerHTML = ((fup_no - consumed_no) / fup_no) * 100 + "%";
+    return render();
 };
-xhr.send();
+usageHandler.send();
