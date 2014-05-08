@@ -30,7 +30,7 @@ render = function (n) {
 
     consumed.innerHTML = usage;
     fup.innerHTML = package.data + ' GB';
-    bbMeter.innerHTML = ((package.data - usage) / package.data) * 100 + "%";
+    bbMeter.innerHTML = (((package.data - usage) / package.data) * 100).toFixed(2) + "%";
 
     return this;
 },
