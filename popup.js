@@ -29,7 +29,10 @@ render = function (n) {
 
     var consumed = document.getElementById("consumed"),
         fup = document.getElementById("fup"),
-        bbMeter = document.getElementById("bb-meter");
+        bbMeter = document.getElementById("bb-meter"),
+        log = document.getElementById("log");
+
+    log.remove();
 
     consumed.innerHTML = usage;
     fup.innerHTML = package.data + ' GB';
