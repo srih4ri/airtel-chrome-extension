@@ -7,11 +7,12 @@ body {
 #first-row {
     height: 50px;
     padding: 6px;
-    font-size: 24px;
+    font-size: 19px;
+    text-align: center;
 }
 
-.half {
-    width: 50%;
+.third {
+    width: 33%;
     display: inline-block;
     float: left;
 }
@@ -29,6 +30,10 @@ body {
     color: #1569FF;
 }
 
+#target-rate{
+  color: #FE7C90;
+}
+
 #bb-meter {
     font-size: 35px;
     text-align: center;
@@ -40,6 +45,7 @@ body {
 #log {
     display: none;
 }
+
 
 .loading #first-row,
 .loading #bb-meter,
