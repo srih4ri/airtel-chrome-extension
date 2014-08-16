@@ -1,55 +1,55 @@
 var packageHandler,
-    render,
-    onError,
+render,
+onError,
 
-    logCache = [],
-    log;
+logCache = [],
+log;
 
-render = function (consumed, fup) {
-
-    document.body.classList.remove("loading");
-    document.getElementById("log").remove();
-    document.getElementById("fup").innerHTML = fup;
-    document.getElementById("consumed").innerHTML = consumed;
-    document.getElementById("bb-meter").innerHTML =
-        (((fup - consumed) / fup) * 100).toFixed(2) + "%";
-
-    return this;
+render = function (consumed, fup, daysLeft) {
+  document.body.classList.remove("loading");
+  document.getElementById("log").remove();
+  document.getElementById("fup").innerHTML = fup;
+  document.getElementById("consumed").innerHTML = consumed;
+  document.getElementById("bb-meter").innerHTML =
+    (((fup - consumed) / fup) * 100).toFixed(2) + "%";
+  document.getElementById("target-rate").innerHTML =
+    (consumed/daysLeft).toFixed(2);
+  return this;
 };
 
 onError = function (message) {
-    document.body.classList.add("error");
-    message = message || this.statusText;
-    if (this.status === 0) {
-        log('error', "Unable to connect to the Internet");
-    } else {
-        log('error', message);
-    }
+  document.body.classList.add("error");
+  message = message || this.statusText;
+  if (this.status === 0) {
+    log('error', "Unable to connect to the Internet");
+  } else {
+    log('error', message);
+  }
 };
 
 log = function (level, message) {
-    level = level || 'info';
-    message = message || ' ';
+  level = level || 'info';
+  message = message || ' ';
 
-    // Cache message till DOM is ready
-    logCache.push([level, message]);
+  // Cache message till DOM is ready
+  logCache.push([level, message]);
 
-    if (document.readyState !== 'complete') {
-        return;
-    }
+  if (document.readyState !== 'complete') {
+    return;
+  }
 
-    var $log = document.getElementById("log"),
-        span;
+  var $log = document.getElementById("log"),
+  span;
 
-    logCache.forEach(function (message) {
-        span = document.createElement("span");
-        span.className = message[0];
-        span.innerHTML = message[1];
+  logCache.forEach(function (message) {
+    span = document.createElement("span");
+    span.className = message[0];
+    span.innerHTML = message[1];
 
-        $log.appendChild(span);
-    });
+    $log.appendChild(span);
+  });
 
-    logCache = [];
+  logCache = [];
 };
 
 log('info', 'Starting up');
@@ -57,50 +57,34 @@ log('info', 'Starting up');
 // Find and update user's package.
 packageHandler = new XMLHttpRequest();
 packageHandler.onerror = onError;
-packageHandler.open("GET", "http://portal.acttv.in/index.php/mypackage", true);
+packageHandler.open("GET", "http://122.160.230.125:8080/gbod/gb_on_demand.do", true);
 packageHandler.onreadystatechange = function () {
-    var div,
-        t,
-        match,
-        usage, // Total usage, in GigaBytes
-        fup; // Users's package -> one among the list
 
-    if (this.readyState !== 4 || this.status !== 200) {
-        return this;
-    }
+  var div,
+  details,
+  usage, // Total usage, in GigaBytes
+  fup, // Users's package -> one among the list
+  daysLeft; //No of days left in current billing cycle
 
-    log('success', 'Fetched package info');
+  if (this.readyState !== 4 || this.status !== 200) {
+    return this;
+  }
 
-    div = document.createElement("div");
-    div.innerHTML = this.responseText;
+  log('success', 'Fetched package info');
 
-    t = div
-        .querySelector('title')
-        .textContent;
+  div = document.createElement("div");
+  div.innerHTML = this.responseText;
 
-    if (t === 'Invalid Access') {
-        return log('error', "`Invalid Access` fetching package information");
-    }
+  elems = div.querySelectorAll('.content-data ul li')
 
-    // Sample: "59.04 GB (Quota 200.00 GB)"
-    t = div
-        .querySelector(".moduletable tr:nth-child(4) td:nth-child(2) label")
-        .textContent
-        .trim();
+  details = [];
 
-    // >> t.match(/([\d\.]+)\s*GB\s*\(Quota\s*([\d\.]+).*/);
-    // ["59.05 GB (Quota 200.00 GB)", "59.05", "200.00"]
+  for(i = 0; i< elems.length;i++){details.push(elems[i].innerText.split(":"))}
+  usage = parseFloat(details[1][1].trim());
+  fup   = parseFloat(details[2][1].trim());
+  daysLeft = details[3][1].trim();
 
-    try {
-        match = t.match(/([\d\.]+)\s*GB\s*\(Quota\s*([\d\.]+)\sGB\)/);
-        usage = parseFloat(match[1], 10);
-        fup = parseFloat(match[2], 10);
-    } catch (e) {
-        log('error', "Unable to parse response");
-        return 1;
-    }
-
-    return render(usage, fup);
+  return render(usage, fup, daysLeft);
 };
 log('info', 'Fetching package info');
 packageHandler.send();

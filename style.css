@@ -30,7 +30,7 @@ body {
 }
 
 #bb-meter {
-    font-size: 57px;
+    font-size: 35px;
     text-align: center;
     background-color: #0C97D8;
     color: #fff;
@@ -42,7 +42,8 @@ body {
 }
 
 .loading #first-row,
-.loading #bb-meter {
+.loading #bb-meter,
+.loading #target {
     visibility: hidden;
     display: none;
 }
