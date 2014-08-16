@@ -1,27 +1,25 @@
 {
-	"manifest_version": 2,
+  "manifest_version": 2,
 
-	"name": "ACT Usage",
-	"description": "Shows your ACT Internet usage if you are on a broadband ACT connection in India. Not affiliated with ACT Broadband in any way.",
-	"version": "1.1",
+  "name": "Airtel Usage",
+  "description": "Shows your Airtel Internet usage if you are on a broadband Airtel connection in India. Not affiliated with Airtel Broadband in any way.",
+  "version": "1.1",
 
-	"content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
+  "permissions": [
+    "http://122.160.230.125/"
+  ],
 
-	"permissions": [
-		"http://portal.acttv.in/"
-	],
+  "icons": {
+    "128": "airtel_logo.png",
+    "48": "airtel_logo.png",
+    "16": "airtel_logo.png"
+  },
 
-	"icons": {
-		"128": "act_128.png",
-		"48": "act_48.png",
-		"16": "act_16.png"
-	},
+  "author": "Anenth & Mrinmoy",
 
-	"author": "Anenth & Mrinmoy",
-
-	"browser_action": {
-		"default_icon": "act_48.png",
-		"default_title": "See your current ACT Broadband usage",
-		"default_popup": "popup.html"
-	}
+  "browser_action": {
+    "default_icon": "airtel_logo.png",
+    "default_title": "See your current Airtel Broadband usage",
+    "default_popup": "popup.html"
+  }
 }
