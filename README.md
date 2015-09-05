@@ -22,3 +22,7 @@ Installation
 License
 ---
 MIT
+
+How does it work?
+---
+It fetches the usage details from airtel's smartbytes page. Does some calculations to show the GB/day left.
