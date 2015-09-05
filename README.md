@@ -1,25 +1,16 @@
 Airtel Broadband Usage Monitor
 ---
 
-Extension for airtel broadband based on the one for ACT.
-
-Original README follows :
-
-ACT Broadband Usage Monitor
----
-
-Shows your ACT Broadband data usage (Bangalore currently).
-
-Based on 'airtel-chrome-extension' by Rakesh Pai.
-https://github.com/rakeshpai/airtel-chrome-extension
-
-Built during Hasgeek Newyear 2014 Hacknight by Mrinmoy Das and Anenth Guru.
+This addon will show you : 
+ * GB Consumed.
+ * FUP Limit.
+ * GB left per day till the end of this billing cycle to stay within your FUP.
 
 Installation
 ---
 
 1.
-   [Download the zip](https://github.com/anenthg/act-chrome-extension/archive/master.zip)
+   [Download the zip](https://github.com/srih4ri/airtel-chrome-extension/archive/master.zip)
    and extract it into a suitable folder on your hard drive.
 2. Type in `chrome://extensions` in your address bar in Google Chrome.
 3. Check the "Developer mode" checkbox at the top right of the page.
@@ -31,7 +22,3 @@ Installation
 License
 ---
 MIT
-
-Preview
----
-![](./LQZuEqC.png)
